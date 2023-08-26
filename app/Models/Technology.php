@@ -13,4 +13,8 @@ class Technology extends Model
         
         return Str::slug($name, '-');
     }
+
+    public function projects() {
+        return $this->belongsToMany(Project::class);
+    }
 }
