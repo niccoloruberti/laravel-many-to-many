@@ -35,6 +35,14 @@
             </div>
         </div>
         @endif
+        <div class="col-12 mt-5">
+            <strong>Tecnologie utilizzate:</strong>
+            @if($project->technologies)
+                @foreach($project->technologies as $technology)
+                    <a href="" class="badge text-bg-primary text-decoration-none">{{ $technology->name }}</a>
+                @endforeach
+            @endif
+        </div>
     </div>
 </div>
 
