@@ -64,6 +64,13 @@
                     @enderror
                 </div>
                 <div class="form-group mt-3">
+                    <p>Seleziona le tecnologie utilizzate</p>
+                    @foreach($technologies as $technology)
+                        <input type="checkbox" name="" value="{{ $technology->id }}" class="form-check-input">
+                        <label class="form-check-label me-3">{{ $technology->name }}</label>
+                    @endforeach
+                </div>
+                <div class="form-group mt-3">
                     <button type="submit" class="btn btn-sm btn-success">Aggiungi</button>
                 </div>
             </form>
