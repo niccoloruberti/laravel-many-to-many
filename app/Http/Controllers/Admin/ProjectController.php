@@ -43,6 +43,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        // dd($request);
         $data = $request->all();
 
         $project = new Project();
@@ -58,7 +59,11 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return redirect()->route('admin.projects.index');
+        if($request->has('technologies')) {
+            $project->technologies()->attach($request->technologies);
+        }
+
+        return redirect()->route('admin.projects.index')->with('message', 'Progetto aggiunto correttamente');
     }
 
     /**
@@ -81,8 +86,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {   
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -110,7 +116,11 @@ class ProjectController extends Controller
 
         $project->update($data);
 
-        return redirect()->route('admin.projects.index');
+        if($request->has('technologies')) {
+            $project->technologies()->sync($request->technologies);
+        }
+
+        return redirect()->route('admin.projects.index')->with('message', 'Progetto modificato correttamente');
     }
 
     /**

@@ -70,6 +70,23 @@
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                {{-- selezione delle tecnologie --}}
+                <div class="form-group mt-3">
+                    <p>Seleziona le tecnologie utilizzate</p>
+                    @foreach($technologies as $technology)
+                        <div class="form-check @error('technologies') is-invalid @enderror">
+                            @if($errors->any())
+                            <input type="checkbox" name="technologies[]" value="{{ $technology->id }}" class="form-check-input" {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+                            @else
+                            <input type="checkbox" name="technologies[]" value="{{ $technology->id }}" class="form-check-input" {{ $project->technologies->contains($technology) ? 'checked' : '' }}>
+                            @endif
+                            <label class="form-check-label me-3">{{ $technology->name }}</label>
+                        </div>
+                    @endforeach
+                    @error('technologies')
+                        <div class="text-danger"> {{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="form-group mt-3">
                     <button type="submit" class="btn btn-sm btn-success">Modifica</button>
                 </div>
