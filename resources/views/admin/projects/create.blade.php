@@ -56,17 +56,18 @@
                     <select class="form-control" name="type_id" id="type_id">
                         <option value="">Seleziona il tipo di progetto</option>
                         @foreach($types as $type)
-                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            <option value="{{ $type->id }}" {{ $type->id == old('type_id') ? 'selected' : '' }}>{{ $type->name }}</option>
                         @endforeach
                     </select>
                     @error('type_id')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                {{-- selezione delle tecnologie --}}
                 <div class="form-group mt-3">
                     <p>Seleziona le tecnologie utilizzate</p>
                     @foreach($technologies as $technology)
-                        <input type="checkbox" name="" value="{{ $technology->id }}" class="form-check-input">
+                        <input type="checkbox" name="technologies[]" value="{{ $technology->id }}" class="form-check-input" {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
                         <label class="form-check-label me-3">{{ $technology->name }}</label>
                     @endforeach
                 </div>
